@@ -6,6 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="GA_KnapSack_Java" />
         <module name="GA_Knapsack3" />
       </profile>
     </annotationProcessing>

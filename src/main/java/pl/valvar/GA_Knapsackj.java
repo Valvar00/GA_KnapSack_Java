@@ -28,31 +28,22 @@ public class GA_Knapsackj {
         for (int i = 0; i < 100; i++) {
             Random rand = new Random();
             Individual[] newPopulation = new Individual[pop_size];
-            int fit_check = 0;
             for (int j = 2; j < pop_size; j++) {
                 int i1 = rand.nextInt(pop_size);
-                int i2 = rand.nextInt(pop_size);
                 newPopulation[0] = getLargest(population);
-                newPopulation[1] = population[i2];
+                newPopulation[1] = tournament(population,100);
                 newPopulation[j] = newPopulation[0].crossover_operator(newPopulation[1]);
                 newPopulation[j].mutate();
                 newPopulation[j].evaluate();
-                //System.out.println(newPopulation[j].score);
             }
-//            for (int j = 2; j < pop_size; j++) {
-//                if (population[j].score==newPopulation[j].score){
-//                    System.out.println("SAME");
-//                }
-//            }
             population = newPopulation;
-//            int best_buffer_old = bIndividual.score;
-//            int best_buffer_new = getLargest(population).score;
-//            if (best_buffer_new!=best_buffer_old){
+            int best_buffer_old = bIndividual.score;
+            int best_buffer_new = getLargest(population).score;
+            if (best_buffer_new!=best_buffer_old){
                 System.out.println("Population " + i);
-                System.out.println("Score :" + getLargest(population).score);
                 System.out.println("Best score:" + bIndividual.score);
                 System.out.println();
-//            }
+            }
         }
         System.out.println("Best score : " + getLargest(population).score);
 //        for (int j = 0; j < num_obj; j++) {
@@ -144,5 +135,19 @@ public class GA_Knapsackj {
             }
         }
         return bIndividual;
+    }
+
+    public static Individual tournament(Individual[] pop,int tour_size){
+        Individual best_ind_tour = new Individual();
+        int best_score = 0;
+        Random rand = new Random();
+        for (int i = 0; i < tour_size; i++) {
+            int i1 = rand.nextInt(pop_size);
+            if(best_score<pop[i1].score){
+                best_ind_tour = pop[i1];
+                best_score = pop[i1].score;
+            }
+        }
+        return best_ind_tour;
     }
 }
